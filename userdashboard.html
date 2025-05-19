@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareCheck</title>
+  <style>
+    /* Base styles */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 0;
+  background-color: #2a002b; 
+  color: #f3f3f3; 
+  overflow-x: hidden;
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header styles */
+header {
+  background-color: #2b0030; 
+  color: #fff;
+  padding: 25px 20px; 
+  text-align: center;
+  animation: slideIn 0.5s ease-out;
+  border-bottom: 2px solid #d4af37; 
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Logo styles with glow effect */
+.logo {
+  max-width: 120px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  animation: glow 10s infinite alternate ease-in-out; 
+}
+
+/* Keyframes for glowing effect */
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px #d4af37, 0 0 7px #d4af37, 0 0 8px #d4af37;
+  }
+  to {
+    box-shadow: 0 0 5px #d4af37, 0 0 7px #d4af37, 0 0 8px #d4af37;
+  }
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #d4af37; 
+}
+
+header nav {
+  margin-top: 15px;
+}
+
+header nav a {
+  color: #e0d7ff; 
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.4s ease, transform 0.4s ease, text-shadow 0.4s ease;
+}
+
+header nav a:hover {
+  color: #ffd700; 
+  transform: scale(1.15);
+  text-shadow: 0 0 8px #ffd700, 0 0 12px #ffd700; 
+}
+
+/* Main container styles */
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+  background: #3b003d;
+  padding: 25px;
+  border-radius: 12px; 
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6), 0 0 10px #8e44ad; 
+  animation: popIn 0.7s ease-in-out;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.container h2 {
+  font-size: 2rem;
+  color: #d4af37; 
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+}
+
+.container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.container ul {
+  margin-left: 20px;
+  list-style-type: disc;
+  color: #e0d7ff;
+}
+
+/* Buttons */
+button,
+.appointment-btn {
+  display: inline-block;
+  background-color: #8e44ad; 
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.4s ease;
+  text-decoration: none;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+button:hover,
+.appointment-btn:hover {
+  background-color: #ffd700;
+  color: #2a002b; 
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.8);
+}
+
+button:active,
+.appointment-btn:active {
+  transform: translateY(2px);
+}
+
+/* Section-specific styles */
+#about-lung-cancer,
+#health-tips,
+#treatment-section {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #3b003d;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6), 0 0 10px #8e44ad;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+#about-lung-cancer h2,
+#health-tips h2,
+#treatment-section h2 {
+  color: #d4af37;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#about-lung-cancer ul,
+#treatment-section ul {
+  margin-left: 20px;
+  list-style-type: disc;
+  color: #e0d7ff;
+  line-height: 2.2;
+}
+
+#health-tips p {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+#treatment-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+#treatment-section ul li {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  color: #e0e0f8;
+}
+
+/* Footer styles */
+footer {
+  background-color: #2b0030;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+footer .footer-links a {
+  color: #d4af37;
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin-right: 20px;
+}
+
+footer .footer-links a:last-child {
+  margin-right: 0; 
+}
+footer .footer-links a:hover {
+  transform: scale(1.1);
+  color: #e0d7ff;
+}
+
+.book-appointment {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.book-appointment .btn {
+  display: inline-block;
+  background-color: #8e44ad; 
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.4s ease;
+  text-decoration: none;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.book-appointment .btn:hover {
+  background-color: #ffd700;
+  color: #2a002b; 
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.8);
+}
+
+.book-appointment .btn:active {
+  transform: translateY(2px);
+}
+    /* Buttons */
+    button,
+    .logout-btn {
+      display: inline-block;
+      background-color: #8e44ad;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      margin-top: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    button:hover,
+    .logout-btn:hover {
+      background-color: #ffd700;
+      color: #2a002b;
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.8);
+    }
+
+    button:active,
+    .logout-btn:active {
+      transform: translateY(2px);
+    }
+
+    /* Footer styles */
+    footer {
+      background-color: #2b0030;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer .footer-links a {
+      color: #d4af37;
+      transition: transform 0.3s ease, color 0.3s ease;
+      margin-right: 20px;
+    }
+
+    footer .footer-links a:last-child {
+      margin-right: 0; 
+    }
+    footer .footer-links a:hover {
+      transform: scale(1.1);
+      color: #e0d7ff;
+    }
+
+    .book-appointment {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .book-appointment .btn {
+      display: inline-block;
+      background-color: #8e44ad;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      margin-top: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .book-appointment .btn:hover {
+      background-color: #ffd700;
+      color: #2a002b;
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.8);
+    }
+
+    .book-appointment .btn:active {
+      transform: translateY(2px);
+      
+    }
+    /* Floating Bubble AI */
+.floating-bubble {
+  position: fixed;
+  bottom: 50px;
+  right: 40px;
+  height: 150px;
+  background-color: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+  animation: blink 2s ease-in-out;
+}
+
+.floating-bubble:hover {
+  transform: scale(1.2);
+}
+
+.bubble-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: contain;
+}
+/* Title and description styling */
+.book-ct-scan h3 {
+  color: #d4af37;
+  font-size: 1.5rem;
+  
+  margin-bottom: 15px;
+}
+
+.book-ct-scan h4 {
+  color: #e0d7ff;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.book-ct-scan p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.book-ct-scan ul {
+  margin-left: 20px;
+  list-style-type: disc;
+  color: #e0d7ff;
+  line-height: 1.8;
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  background-color: #8e44ad;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  margin-top: 15px;
+}
+
+.btn:hover {
+  background-color: #ffd700;
+  color: #2a002b;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.8);
+}
+
+.btn:active {
+  transform: translateY(2px);
+}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <img src="logo.jpeg" alt="CareCheck Logo" class="logo">
+      <h1>CareCheck: Lung Cancer Detection System</h1>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="symptoms.html">Symptoms</a>
+      <a href="treatment.html">Treatment</a>
+      <a href="login.html" class="logout-btn">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="upload-section">
+      <label for="ctscan">Upload CT Scan Images: </label>
+      <input type="file" id="ctscan" accept="image/*" multiple>
+    </div>
+    <button id="detect-btn">Detect</button>
+
+    <div class="results" id="results">
+      <h3>Results:</h3>
+      <p id="output">No detection results available yet.</p>
+    </div>
+
+    <div id="ai-accuracy-note" class="note">
+      <h3>Important Note:</h3>
+      <p>While our Machine-driven lung cancer detection model delivers highly accurate results, it is important to understand that no system can guarantee 100% accuracy. Our model is a tool to aid in early detection, but the final diagnosis should always be confirmed by a qualified healthcare professional.</p>
+    </div>
+  </div>
+
+  <div class="book-ct-scan">
+    
+    <h4>you need to book a CT scan, click the button below:</h4>
+    <a href="https://medintu.in/ct-scan/chest/" class="btn" target="_blank">Book a CT Scan</a>
+  
+    <h3>What is a CT Scan?</h3>
+    <p>A CT scan (Computed Tomography) uses X-rays to capture detailed images of the body. These images help doctors examine internal structures like organs, bones, and tissues, making it easier to detect illnesses, injuries, and diseases like cancer or infections. The scanner takes multiple X-ray images from different angles, and a computer combines them into detailed 2D or 3D images for better analysis. CT scans are faster than other imaging techniques, often taking less than 10 minutes, and provide more detailed pictures, especially of soft tissues.</p>
+  
+    <h3>What to Expect During the Procedure</h3>
+    <p>Here’s a quick guide to what happens during a chest CT scan:</p>
+    <ul>
+      <li><strong>Preparation:</strong>
+        <ul>
+          <li><strong>Clothing:</strong> You may be asked to change into a gown to avoid any metal interference with the scan.</li>
+          <li><strong>Fasting:</strong> If you need contrast material, you might be asked not to eat for a few hours before the scan.</li>
+          <li><strong>Medical History:</strong> Let the doctor know if you have any allergies or are taking medication.</li>
+        </ul>
+      </li>
+      <li><strong>Arrival:</strong>
+        <ul>
+          <li><strong>Check-In:</strong> Sign in at the imaging department, where the staff will confirm your details and explain the process.</li>
+          <li><strong>Discussion:</strong> The technician will walk you through the scan and answer any questions.</li>
+        </ul>
+      </li>
+      <li><strong>Positioning:</strong>
+        <ul>
+          <li>You’ll lie on a padded table that moves into the CT scanner, which is shaped like a large ring.</li>
+          <li>The technician may ask you to position your arms to help get clearer images.</li>
+        </ul>
+      </li>
+      <li><strong>The Scan:</strong>
+        <ul>
+          <li><strong>Breath-Holding:</strong> You may be asked to hold your breath briefly to ensure clear images.</li>
+          <li><strong>Contrast Material:</strong> If a contrast dye is used, you might feel warm or have a metallic taste in your mouth.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  
+
+  <section id="about-lung-cancer">
+    <h2>Understanding Lung Cancer and the Importance of Expert Consultation</h2>
+    
+    <p>
+      Lung cancer is a severe and life-threatening disease that develops when abnormal cells grow uncontrollably in the tissues of the lungs, forming tumors. These tumors can disrupt the lungs' primary function—supplying oxygen to the bloodstream and removing carbon dioxide. If left untreated, lung cancer can spread to other parts of the body, causing widespread complications and critical health challenges.
+    </p>
+  
+    <p>
+      While lung cancer is often associated with smoking, it’s important to recognize that non-smokers can also develop the disease. Environmental factors such as prolonged exposure to polluted air, harmful chemicals, and occupational hazards significantly contribute to rising lung cancer cases. Genetic predisposition may also play a role in the onset of the disease.
+    </p>
+  
+    <h3>The Types of Lung Cancer</h3>
+    <p>Understanding the two main types of lung cancer can help you better appreciate the complexity of the disease:</p>
+    <ul>
+      <li><strong>Non-Small Cell Lung Cancer (NSCLC):</strong> Accounting for over 80% of lung cancer cases, NSCLC progresses more slowly compared to other forms but can still be deadly if not detected early.</li>
+      <li><strong>Small Cell Lung Cancer (SCLC):</strong> A more aggressive and fast-spreading form of lung cancer that typically requires intensive treatment from the outset.</li>
+    </ul>
+  
+    <h3>Why Early Detection Matters</h3>
+    <p>
+      One of the greatest challenges with lung cancer is that it often goes unnoticed until it reaches an advanced stage. This makes early detection critical for improving treatment outcomes and survival rates. Common warning signs include:
+    </p>
+    <ul>
+      <li>Persistent coughing that does not go away</li>
+      <li>Chest pain that worsens with breathing or coughing</li>
+      <li>Shortness of breath</li>
+      <li>Unexplained weight loss and loss of appetite</li>
+      <li>Coughing up blood or rust-colored sputum</li>
+    </ul>
+  
+    <p>
+      If you experience any of these symptoms, it is essential not to delay seeking medical advice. Early diagnosis allows for a broader range of treatment options and a significantly better prognosis.
+    </p>
+  
+    <h3>How Our Detection System Helps</h3>
+    <p>
+      Our advanced lung cancer detection tool harnesses cutting-edge machine learning models to provide highly accurate and reliable results. By analyzing medical data, our system can help identify potential signs of lung cancer early on. This technology is designed to support healthcare professionals in making faster and more informed decisions.
+    </p>
+  
+    <h3>Why You Should Consult a Specialist</h3>
+    <p>
+      While our detection system delivers accurate predictions, it is important to understand that no automated tool can replace a professional medical diagnosis. The results provided by our system are meant to assist you in taking the first step toward better lung health. If our system detects any indications of lung cancer or if you have concerns about your respiratory health, consulting a specialist is vital.
+    </p>
+  
+    <p>
+      Only a qualified healthcare provider can perform the necessary diagnostic tests, such as imaging scans and biopsies, to confirm or rule out lung cancer. They can also develop a tailored treatment plan based on your specific condition.
+    </p>
+  
+    <h3>Your Health Is Our Priority</h3>
+    <p>
+      We strongly encourage you to take proactive steps for your health. Whether you are seeking peace of mind or have detected concerning symptoms, booking an appointment with a specialist can be a life-saving decision.
+    </p>
+  
+    <div class="book-appointment">
+      <a href="cunsultationform.html" class="btn" target="_blank">Book an Appointment with a Specialist</a>
+    </div>
+  </section>
+
+  <section id="health-tips">
+    <h2>Health Tips of the Day</h2>
+    <p>Stay hydrated: Drinking enough water helps your lungs stay healthy by keeping mucous membranes moist.</p>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 CareCheck. All Rights Reserved.</p>
+      <div class="footer-links">
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+        <a href="termsofservice.html">Terms of Service</a>
+      </div>
+      <div class="important-links">
+        <h3>Important Links</h3>
+        <ul>
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4991145/" target="_blank">National Library of Medicine</a></li>
+          <li><a href="https://www.jto.org/article/S1556-0864(16)31342-9/fulltext" target="_blank">Journal of Thoracic Oncology</a></li>
+          <li><a href="https://www.wcrf.org/preventing-cancer/cancer-statistics/lung-cancer-statistics/" target="_blank">World Cancer Research Fund</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Floating AI Query Bubble -->
+<a href="askai.html" id="ai-query-bubble" class="floating-bubble">
+  <img src="askailogo.png" alt="Chat AI" class="bubble-icon">
+</a>
+  </footer>
+
+  <script>
+    document.querySelector('.logout-btn').addEventListener('click', function() {
+      alert('You have been logged out.');
+      window.location.href = 'login.html'; // Redirect to login page after logout
+    });
+  </script>
+  <script>
+    document.getElementById('detect-btn').addEventListener('click', async () => {
+      const input = document.getElementById('ctscan');
+      const output = document.getElementById('output');
+  
+      if (!input.files.length) {
+        output.textContent = 'Please upload at least one CT scan image.';
+        return;
+      }
+  
+      const formData = new FormData();
+      for (let i = 0; i < input.files.length; i++) {
+        formData.append('files', input.files[i]);
+      }
+  
+      output.textContent = 'Processing...';
+  
+      try {
+        const response = await fetch('http://localhost:5000/api/predict', {
+          method: 'POST',
+          body: formData
+        });
+  
+        if (!response.ok) {
+          throw new Error('Prediction failed.');
+        }
+  
+        const result = await response.json();
+        let resultText = '';
+  
+        if (Array.isArray(result.predictions)) {
+          result.predictions.forEach((prediction, idx) => {
+            resultText += `Image ${idx + 1}: ${prediction}<br>`;
+          });
+        } else {
+          resultText = result.predictions || 'Unexpected response.';
+        }
+  
+        output.innerHTML = resultText;
+      } catch (error) {
+        console.error(error);
+        output.textContent = 'An error occurred during prediction.';
+      }
+    });
+  </script>
+</body>
+</html>

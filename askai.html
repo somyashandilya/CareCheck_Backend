@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareCheck AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Base styles */
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #2a002b;
+      color: #f3f3f3;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #2b0030;
+      color: #fff;
+      padding: 25px 20px;
+      text-align: center;
+      border-bottom: 2px solid #d4af37;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #d4af37;
+    }
+
+    /* AI Chat Container */
+    .ai-chat-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #3b003d;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6), 0 0 10px #8e44ad;
+    }
+
+    .ai-chat-container h2 {
+      color: #d4af37;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Chat Box Styles */
+    .chat-box {
+      height: 400px;
+      overflow-y: auto;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #2a002b;
+      color: #fff;
+      margin-bottom: 15px;
+      border: 1px solid #d4af37;
+    }
+
+    .chat-message {
+      margin-bottom: 15px;
+    }
+
+    .chat-message .user {
+      color: #ffd700;
+    }
+
+    .chat-message .ai {
+      color: #8e44ad;
+    }
+
+    /* Input Form */
+    .input-form {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .input-form input {
+      width: 80%;
+      padding: 10px;
+      border: 2px solid #8e44ad;
+      border-radius: 8px;
+      background-color: #3b003d;
+      color: white;
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+
+    .input-form button {
+      padding: 10px 20px;
+      background-color: #8e44ad;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-form button:hover {
+      background-color: #ffd700;
+      color: #2a002b;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      margin-top: 20px;
+    }
+
+    .faq-section h3 {
+      color: #d4af37;
+      text-align: center;
+    }
+
+    .faq-list {
+      list-style: none;
+      padding: 0;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #3b003d;
+      border-radius: 8px;
+      padding: 15px;
+    }
+
+    .faq-list li {
+      padding: 10px;
+      border-bottom: 1px solid #d4af37;
+      cursor: pointer;
+      color: #ffd700;
+    }
+
+    .faq-list li:hover {
+      background-color: #8e44ad;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>CareCheck AI</h1>
+  </header>
+
+  <div class="ai-chat-container">
+    <h2>Ask me anything you have a doubt about!</h2>
+
+    <div class="chat-box" id="chat-box"></div>
+
+    <div class="input-form">
+      <input type="text" id="user-input" placeholder="(Type your message here...)">
+      <button id="send-btn">Send</button>
+    </div>
+
+    <!-- Frequently Asked Questions -->
+    <div class="faq-section">
+      <h3>Frequently Asked Questions</h3>
+      <ul class="faq-list" id="faq-list">
+        <li>What are the early symptoms of lung cancer?</li>
+        <li>What are the risk factors for lung cancer?</li>
+        <li>How can I reduce the risk of lung cancer?</li>
+        <li>Is lung cancer curable?</li>
+        <li>What are the treatments for lung cancer?</li>
+        <li>Can non-smokers get lung cancer?</li>
+        <li>How is lung cancer diagnosed?</li>
+        <li>What is the difference between small cell and non-small cell lung cancer?</li>
+        <li>What is chemotherapy?</li>
+        <li>What is radiation therapy?</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chat-box");
+    const userInput = document.getElementById("user-input");
+    const sendBtn = document.getElementById("send-btn");
+    const faqList = document.getElementById("faq-list");
+
+    sendBtn.addEventListener("click", sendMessage);
+    userInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    faqList.addEventListener("click", (e) => {
+      if (e.target && e.target.nodeName === "LI") {
+        const question = e.target.textContent;
+        appendMessage("user", question);
+        getAnswer(question);
+      }
+    });
+
+    function sendMessage() {
+      const message = userInput.value.trim();
+      if (message) {
+        appendMessage("user", message);
+        getAnswer(message);
+        userInput.value = '';
+      }
+    }
+
+    function appendMessage(sender, message) {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("chat-message");
+      messageDiv.classList.add(sender);
+      messageDiv.innerHTML = `<strong>${sender === "user" ? "You" : "CareCheck AI"}:</strong> ${message}`;
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function getAnswer(question) {
+      try {
+        const response = await fetch("qadata.json");
+        const data = await response.json();
+        const match = data.find(qa => qa.question.toLowerCase() === question.toLowerCase());
+        const answer = match ? match.answer : "Sorry, I don't have an answer for that.";
+        appendMessage("ai", answer);
+      } catch (error) {
+        console.error("Error fetching the JSON file:", error);
+        appendMessage("ai", "There was an error fetching the answers.");
+      }
+    }
+  </script>
+
+</body>
+</html>

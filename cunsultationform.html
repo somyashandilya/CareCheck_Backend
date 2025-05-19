@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2a002b; 
+            color: #f3f3f3; 
+            overflow-x: hidden;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header styles */
+        header {
+            background-color: #2b0030; 
+            color: #fff;
+            padding: 25px 20px; 
+            text-align: center;
+            animation: slideIn 1.2s ease-out;
+            border-bottom: 2px solid #d4af37; 
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            animation: glow 10s infinite alternate ease-in-out; 
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #d4af37, 0 0 7px #d4af37, 0 0 20px #d4af37;
+            }
+            to {
+                box-shadow: 0 0 5px #d4af37, 0 0 7px #d4af37, 0 0 20px #d4af37;
+            }
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #d4af37; 
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #3b003d;
+            padding: 25px;
+            border-radius: 12px; 
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6), 0 0 10px #8e44ad; 
+            animation: popIn 1.5s ease-in-out;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .container h2 {
+            font-size: 2rem;
+            color: #d4af37; 
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
+        }
+
+        form label {
+            font-size: 1.1rem;
+            color: #e0d7ff;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #2a002b;
+            color: #e0d7ff;
+        }
+
+        button {
+            display: inline-block;
+            background-color: #8e44ad; 
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        button:hover {
+            background-color: #ffd700;
+            color: #2a002b; 
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.8);
+        }
+
+        button:active {
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.jpeg" alt="Logo" class="logo">
+        </div>
+        <h1>Consult a Doctor for all your Doubts</h1>
+    </header>
+    <div class="container">
+        <h2>Consultation Form</h2>
+        <form id="consultationForm">
+            <label for="patient-name">Full Name:</label>
+            <input type="text" id="patient-name" name="patient_name" required><br><br>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br><br>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select><br><br>
+
+            <label for="height">Height (in cm):</label>
+            <input type="number" id="height" name="height" required><br><br>
+
+            <label for="weight">Weight (in kg):</label>
+            <input type="number" id="weight" name="weight" required><br><br>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required><br><br>
+
+            <label for="address">Address:</label><br>
+            <textarea id="address" name="address" rows="4" required></textarea><br><br>
+
+            <label for="symptoms">Describe Symptoms:</label><br>
+            <textarea id="symptoms" name="symptoms" rows="4" required></textarea><br><br>
+
+            <label for="medical-history">Medical History:</label><br>
+            <textarea id="medical-history" name="medical_history" rows="4"></textarea><br><br>
+
+            <button type="submit">Submit Consultation</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('consultationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const patientName = document.getElementById('patient-name').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const symptoms = document.getElementById('symptoms').value;
+            const medicalHistory = document.getElementById('medical-history').value;
+
+            const consultationData = {
+                patientName,
+                age,
+                gender,
+                height,
+                weight,
+                phone,
+                address,
+                symptoms,
+                medicalHistory
+            };
+
+            // Simulate real-time submission to doctor's dashboard
+            window.localStorage.setItem('consultationData', JSON.stringify(consultationData));
+
+            alert("Consultation data submitted successfully.");
+        });
+    </script>
+</body>
+</html>

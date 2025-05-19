@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareCheck</title>
+    <link rel="stylesheet" href="styles.css">
+  
+    <!-- Favicon for Browser Tab -->
+    <link rel="icon" href="tittle.ico" type="image/x-icon">
+
+    <script>
+      async function handleUpload(event) {
+        event.preventDefault();
+        const formData = new FormData(document.getElementById('uploadForm'));
+    
+        const resultBox = document.getElementById("result");
+        resultBox.textContent = "Processing...";
+    
+        try {
+          const response = await fetch("http://127.0.0.1:8000/predict", {
+            method: "POST",
+            body: formData
+          });
+          const data = await response.json();
+          if (data.prediction) {
+            resultBox.textContent = `Prediction: ${data.prediction}`;
+          } else {
+            resultBox.textContent = `Error: ${data.error || "Unknown error"}`;
+          }
+        } catch (error) {
+          resultBox.textContent = `Request failed: ${error.message}`;
+        }
+      }
+    </script>
+  
+  </head>
+  
+<body>
+
+  <header>
+    <div class="header-content">
+      <img src="logo.jpeg" alt="CareCheck Logo" class="logo">
+      
+      <h1>CareCheck: Lung Cancer Detection System</h1>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="symptoms.html">Symptoms</a>
+      <a href="treatment.html">Treatment</a>
+
+      <!-- Login/Signup Button -->
+      <a href="login.html" class="btn professional-btn">Login / Signup</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="upload-section">
+      <label for="imageUpload">Upload CT Scan Images: </label>
+      <input type="file" id="imageUpload" accept="image/*">
+    </div>
+    
+    <button id="detectButton">Detect</button>
+  
+    <div class="results" id="results">
+      <h3>Results:</h3>
+      <p id="result">No detection results available yet.</p>
+    </div>
+  </div>
+  
+    <div id="ai-accuracy-note" class="note">
+      <h3>Important Note:</h3>
+      <p>
+        While our Machine-driven lung cancer detection model delivers highly accurate results, 
+        it is important to understand that no system can guarantee 100% accuracy. 
+        Our model is a tool to aid in early detection, but the final diagnosis should always 
+        be confirmed by a qualified healthcare professional.
+      </p>
+    </div>
+  </div>
+
+  <div class="book-ct-scan">
+    
+    <h4>you need to book a CT scan, click the button below:</h4>
+    <a href="https://medintu.in/ct-scan/chest/" class="btn" target="_blank">Book a CT Scan</a>
+  
+    <h3>What is a CT Scan?</h3>
+    <p>A CT scan (Computed Tomography) uses X-rays to capture detailed images of the body. These images help doctors examine internal structures like organs, bones, and tissues, making it easier to detect illnesses, injuries, and diseases like cancer or infections. The scanner takes multiple X-ray images from different angles, and a computer combines them into detailed 2D or 3D images for better analysis. CT scans are faster than other imaging techniques, often taking less than 10 minutes, and provide more detailed pictures, especially of soft tissues.</p>
+  
+    <h3>What to Expect During the Procedure</h3>
+    <p>Here’s a quick guide to what happens during a chest CT scan:</p>
+    <ul>
+      <li><strong>Preparation:</strong>
+        <ul>
+          <li><strong>Clothing:</strong> You may be asked to change into a gown to avoid any metal interference with the scan.</li>
+          <li><strong>Fasting:</strong> If you need contrast material, you might be asked not to eat for a few hours before the scan.</li>
+          <li><strong>Medical History:</strong> Let the doctor know if you have any allergies or are taking medication.</li>
+        </ul>
+      </li>
+      <li><strong>Arrival:</strong>
+        <ul>
+          <li><strong>Check-In:</strong> Sign in at the imaging department, where the staff will confirm your details and explain the process.</li>
+          <li><strong>Discussion:</strong> The technician will walk you through the scan and answer any questions.</li>
+        </ul>
+      </li>
+      <li><strong>Positioning:</strong>
+        <ul>
+          <li>You’ll lie on a padded table that moves into the CT scanner, which is shaped like a large ring.</li>
+          <li>The technician may ask you to position your arms to help get clearer images.</li>
+        </ul>
+      </li>
+      <li><strong>The Scan:</strong>
+        <ul>
+          <li><strong>Breath-Holding:</strong> You may be asked to hold your breath briefly to ensure clear images.</li>
+          <li><strong>Contrast Material:</strong> If a contrast dye is used, you might feel warm or have a metallic taste in your mouth.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  
+
+  <section id="about-lung-cancer">
+    <h2>Understanding Lung Cancer and the Importance of Expert Consultation</h2>
+    
+    <p>
+      Lung cancer is a severe and life-threatening disease that develops when abnormal cells grow uncontrollably in the tissues of the lungs, forming tumors. These tumors can disrupt the lungs' primary function—supplying oxygen to the bloodstream and removing carbon dioxide. If left untreated, lung cancer can spread to other parts of the body, causing widespread complications and critical health challenges.
+    </p>
+  
+    <p>
+      While lung cancer is often associated with smoking, it’s important to recognize that non-smokers can also develop the disease. Environmental factors such as prolonged exposure to polluted air, harmful chemicals, and occupational hazards significantly contribute to rising lung cancer cases. Genetic predisposition may also play a role in the onset of the disease.
+    </p>
+  
+    <h3>The Types of Lung Cancer</h3>
+    <p>Understanding the two main types of lung cancer can help you better appreciate the complexity of the disease:</p>
+    <ul>
+      <li><strong>Non-Small Cell Lung Cancer (NSCLC):</strong> Accounting for over 80% of lung cancer cases, NSCLC progresses more slowly compared to other forms but can still be deadly if not detected early.</li>
+      <li><strong>Small Cell Lung Cancer (SCLC):</strong> A more aggressive and fast-spreading form of lung cancer that typically requires intensive treatment from the outset.</li>
+    </ul>
+  
+    <h3>Why Early Detection Matters</h3>
+    <p>
+      One of the greatest challenges with lung cancer is that it often goes unnoticed until it reaches an advanced stage. This makes early detection critical for improving treatment outcomes and survival rates. Common warning signs include:
+    </p>
+    <ul>
+      <li>Persistent coughing that does not go away</li>
+      <li>Chest pain that worsens with breathing or coughing</li>
+      <li>Shortness of breath</li>
+      <li>Unexplained weight loss and loss of appetite</li>
+      <li>Coughing up blood or rust-colored sputum</li>
+    </ul>
+  
+    <p>
+      If you experience any of these symptoms, it is essential not to delay seeking medical advice. Early diagnosis allows for a broader range of treatment options and a significantly better prognosis.
+    </p>
+  
+    <h3>How Our Detection System Helps</h3>
+    <p>
+      Our advanced lung cancer detection tool harnesses cutting-edge machine learning models to provide highly accurate and reliable results. By analyzing medical data, our system can help identify potential signs of lung cancer early on. This technology is designed to support healthcare professionals in making faster and more informed decisions.
+    </p>
+  
+    <h3>Why You Should Consult a Specialist</h3>
+    <p>
+      While our detection system delivers accurate predictions, it is important to understand that no automated tool can replace a professional medical diagnosis. The results provided by our system are meant to assist you in taking the first step toward better lung health. If our system detects any indications of lung cancer or if you have concerns about your respiratory health, consulting a specialist is vital.
+    </p>
+  
+    <p>
+      Only a qualified healthcare provider can perform the necessary diagnostic tests, such as imaging scans and biopsies, to confirm or rule out lung cancer. They can also develop a tailored treatment plan based on your specific condition.
+    </p>
+  
+    <h3>Your Health Is Our Priority</h3>
+    <p>
+      We strongly encourage you to take proactive steps for your health. Whether you are seeking peace of mind or have detected concerning symptoms, booking an appointment with a specialist can be a life-saving decision.
+    </p>
+  
+    <div class="book-appointment">
+      <a href="cunsultationform.html" class="btn" target="_blank">Book an Appointment with a Specialist</a>
+    </div>
+  </section>
+  
+
+  <section id="health-tips">
+    <h2>Health Tips of the Day</h2>
+    <p id="daily-tip">Stay hydrated: Drinking enough water helps your lungs stay healthy by keeping mucous membranes moist, making it easier to breathe and reducing the risk of infections.</p>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 CareCheck. All Rights Reserved.</p>
+      <div class="footer-links">
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+        <a href="termsofservice.html">Terms of Service</a>
+      </div>
+      <div class="important-links">
+        <h3>Important Links</h3>
+        <ul>
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4991145/" target="_blank">National Library of Medicine</a></li>
+          <li><a href="https://www.jto.org/article/S1556-0864(16)31342-9/fulltext" target="_blank">Journal of Thoracic Oncology</a></li>
+          <li><a href="https://www.wcrf.org/preventing-cancer/cancer-statistics/lung-cancer-statistics/" target="_blank">World Cancer Research Fund</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+ <!-- Floating AI Query Bubble -->
+<a href="askai.html" id="ai-query-bubble" class="floating-bubble">
+  <img src="askailogo.png" alt="Chat AI" class="bubble-icon">
+</a>
+
+
+
+</body>
+</html>
